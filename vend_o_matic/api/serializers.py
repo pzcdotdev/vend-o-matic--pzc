@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from api.models import Quarter
+from api.models import CoinModel
 
-class QuarterSerializer(serializers.ModelSerializer):
+class CoinSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Quarter
-        fields = ('quantity',)
+        model = CoinModel
+        fields = ('coin',)

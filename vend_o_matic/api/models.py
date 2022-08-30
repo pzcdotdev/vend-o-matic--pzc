@@ -1,4 +1,4 @@
 from django.db import models
 
-class Quarter(models.Model):
-    quantity = models.IntegerField()
+class CoinModel(models.Model):
+    coin = models.IntegerField()
