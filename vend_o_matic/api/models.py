@@ -1,3 +1,4 @@
 from django.db import models
 
-# Create your models here.
+class Quarter(models.Model):
+    quantity = models.IntegerField()
