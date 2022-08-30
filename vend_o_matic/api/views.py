@@ -2,10 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from api.serializers import CoinSerializer
-from api.models import CoinModel
+from api.models import CoinModel, InventoryModel
 
 class CoinViewSet(APIView):
-
     def get_current_coins(self):
         return CoinModel.objects.all().count()
 
@@ -34,5 +33,11 @@ class CoinViewSet(APIView):
         coin.delete()
         return Response(status=status.HTTP_204_NO_CONTENT, 
                         headers=self.get_headers())
+
+
+class InventoryViewSet(APIView):
+    def get(self, request):
+        inventory = InventoryModel.objects.all()
+        return Response(inventory)
 
         
