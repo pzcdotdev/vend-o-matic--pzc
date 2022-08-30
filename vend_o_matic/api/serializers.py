@@ -5,4 +5,4 @@ class QuarterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quarter
-        fields = ('quantity')
+        fields = ('quantity',)
