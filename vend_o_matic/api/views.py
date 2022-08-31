@@ -19,8 +19,6 @@ def update_coin_quantity(addend):
     c.save()
 
 class CoinViewSet(APIView):
-
-
     def put(self, request):
         if not request.data['coin'] == 1:
             return Response(data={'error': 'Please insert a single coin.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -65,5 +63,5 @@ class InventoryViewSet(APIView):
         headers = get_coin_headers()
         update_coin_quantity(-(get_current_coins()))
         headers["X-Inventory-Remaining"] = drink_choice.quantity
-        # return 200 with body, returned coins, remaining drink inventory
+
         return Response(data={"quantity": 1}, status=status.HTTP_200_OK, headers=headers)
