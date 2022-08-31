@@ -4,19 +4,22 @@ from rest_framework import status
 from api.serializers import CoinSerializer
 from api.models import CoinModel, InventoryModel
 
-class CoinViewSet(APIView):
-    def update_coin_quantity(self, addend):
-        c = CoinModel.objects.first()
-        c.coin += addend
-        c.save()
 
-    def get_current_coins(self):
+def get_current_coins():
         return CoinModel.objects.first().coin
 
-    def get_headers(self):
-        return {
-            "X-Coins": f'{self.get_current_coins()}'
-        }
+def get_coin_headers():
+    return {
+        "X-Coins": f'{get_current_coins()}'
+    }
+
+def update_coin_quantity(addend):
+    c = CoinModel.objects.first()
+    c.coin += addend
+    c.save()
+
+class CoinViewSet(APIView):
+
 
     def put(self, request):
         if not request.data['coin'] == 1:
@@ -24,17 +27,17 @@ class CoinViewSet(APIView):
 
         serializer = CoinSerializer(data=request.data)
         if serializer.is_valid():
-            self.update_coin_quantity(1)
+            update_coin_quantity(1)
             return Response(serializer.data, status=status.HTTP_204_NO_CONTENT, 
-            headers=self.get_headers())
+            headers=get_coin_headers())
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
-        if self.get_current_coins() <= 0:
+        if get_current_coins() <= 0:
             return Response(data={'error': 'No coins in machine.'}, status=status.HTTP_404_NOT_FOUND)
-        self.update_coin_quantity(-1)
+        update_coin_quantity(-1)
         return Response(status=status.HTTP_204_NO_CONTENT, 
-                        headers=self.get_headers())
+                        headers=get_coin_headers())
 
 
 class InventoryViewSet(APIView):
@@ -44,11 +47,23 @@ class InventoryViewSet(APIView):
         return Response(inventory)
 
     def put(self, request, id):
-        # check quantity of coins is 2 or greater
-            # return 403 if not
-        # check requested beverage id quantity is greater than 0
-            # return 404 if not
-        # decrement drink quantity
-        # decrement quarter quantity by 2
+        if get_current_coins() < 2:
+            return Response(status=status.HTTP_403_FORBIDDEN, headers=get_coin_headers())
+        
+        try:
+            drink_choice = InventoryModel.objects.get(id=id)
+        except InventoryModel.DoesNotExist:
+            return Response(data={'error': 'choice id not found'}, status=status.HTTP_404_NOT_FOUND)
+        choice_quantity = drink_choice.quantity
+        if choice_quantity == 0:
+            return Response(status=status.HTTP_404_NOT_FOUND, headers=get_coin_headers())
+        
+        drink_choice.quantity -= 1
+        drink_choice.save()
+
+        update_coin_quantity(-2)
+        headers = get_coin_headers()
+        update_coin_quantity(-(get_current_coins()))
+        headers["X-Inventory-Remaining"] = drink_choice.quantity
         # return 200 with body, returned coins, remaining drink inventory
-        return Response(data={"purchasing": id}, status=status.HTTP_200_OK)
+        return Response(data={"quantity": 1}, status=status.HTTP_200_OK, headers=headers)

@@ -6,13 +6,7 @@ class CoinModel(models.Model):
 
 
 class InventoryModel(models.Model):
-    class DrinkChoices(models.TextChoices):
-        BUTTERBEER = "BB", "Butterbeer"
-        ENT_DRAUGHT = "ED", "Ent Draught"
-        AMBROSIA = "AB", "Ambrosia"
-    
     type = models.CharField(
-        max_length=15,
-        choices=DrinkChoices.choices
+        max_length=15
     )
     quantity = models.IntegerField()
