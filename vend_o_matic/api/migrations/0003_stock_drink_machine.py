@@ -22,6 +22,10 @@ def stock_drink_machine(apps, schema_editor):
         d = InventoryModel(type=drink["type"], quantity=drink["quantity"])
         d.save()
 
+    CoinModel = apps.get_model('api', 'CoinModel')
+    c = CoinModel(coin=0)
+    c.save()
+
 class Migration(migrations.Migration):
 
     dependencies = [
