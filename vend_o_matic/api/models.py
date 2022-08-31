@@ -15,3 +15,4 @@ class InventoryModel(models.Model):
         max_length=15,
         choices=DrinkChoices.choices
     )
+    quantity = models.IntegerField()

@@ -12,4 +12,4 @@ class InventorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InventoryModel
-        fields = ('type',)
+        fields = ('type', 'quantity')

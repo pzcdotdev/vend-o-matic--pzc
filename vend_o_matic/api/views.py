@@ -37,7 +37,6 @@ class CoinViewSet(APIView):
 
 class InventoryViewSet(APIView):
     def get(self, request):
-        inventory = InventoryModel.objects.all()
-        return Response(inventory)
-
+        inventory = [drink.type for drink in InventoryModel.objects.all()]
         
+        return Response(inventory)
