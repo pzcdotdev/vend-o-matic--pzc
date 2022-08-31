@@ -52,6 +52,7 @@ class InventoryViewSet(APIView):
             drink_choice = InventoryModel.objects.get(id=id)
         except InventoryModel.DoesNotExist:
             return Response(data={'error': 'choice id not found'}, status=status.HTTP_404_NOT_FOUND)
+            
         choice_quantity = drink_choice.quantity
         if choice_quantity == 0:
             return Response(status=status.HTTP_404_NOT_FOUND, headers=get_coin_headers())
