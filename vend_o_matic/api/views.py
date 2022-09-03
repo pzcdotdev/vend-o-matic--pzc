@@ -76,12 +76,13 @@ class InventoryViewSet(APIView):
         drink_choice.save()
 
         update_coin_quantity(-2)
+
         headers = {
             "X-Coins": f"{get_current_coins()}",
             "X-Inventory-Remaining": f"{drink_choice.quantity}",
         }
-        update_coin_quantity(-(get_current_coins()))
 
+        update_coin_quantity(-(get_current_coins()))
         return Response(
             data={"quantity": 1}, status=status.HTTP_200_OK, headers=headers
         )
