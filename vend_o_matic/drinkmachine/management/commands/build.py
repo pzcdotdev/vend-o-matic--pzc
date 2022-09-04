@@ -22,7 +22,7 @@ class Command(BaseCommand):
         self.stdout.write("Building client app ...")
         subprocess.run(["npm", "run", "build"], cwd=client_dir)
 
-        self.stdout.write("Collecting static files...")
+        self.stdout.write("Collecting static files ...")
         call_command("collectstatic", interactive=False, clear=True, verbosity=0)
 
         exists = os.path.exists(index_path)
@@ -45,7 +45,7 @@ class Command(BaseCommand):
 
         soup.head.insert(len(soup.head.contents), style)
 
-        with open(output_path, "w", endocing="utf-8") as file:
+        with open(output_path, "w", encoding="utf-8") as file:
             file.write(str(soup))
 
         self.stdout.write(self.style.SUCCESS(f"Exported file: {output_path}"))
