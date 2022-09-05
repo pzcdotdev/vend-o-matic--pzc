@@ -29,3 +29,7 @@ Run tests using Django's default test runner:
 Shut down the service, delete the sqlite database `db.sqlite`, then run `docker-compose up` again.
 
 -------------
+
+## Adding React App to Django
+
+http://michaelgainyo.com/articles/how-to-get-django-and-reactjs-to-work-together/

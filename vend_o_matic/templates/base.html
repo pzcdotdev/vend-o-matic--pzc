@@ -3,6 +3,7 @@
 {% block head %}
 
     <title>Django react app</title>
+    {{ sharedData|json_script:"sharedData" }}
 
 {% endblock head %}
 
