@@ -11,6 +11,7 @@ function App() {
     const [inventory, setInventory] = useState([]);
     const [coinCount, setCoins] = useState(0)
     const [returnedCoinCount, setReturnedCoins] = useState(0)
+    const [dispensedItem, setDispensedItem] = useState("")
 
     useEffect(() => {
         getInitialData().then((data) => {
@@ -39,11 +40,14 @@ function App() {
         const drinkId = e.target.dataset["id"]
         await axios.put(`${DOMAIN}/inventory/${drinkId}`)
                    .then(response => {
-                    // const purchasedInventoryItem = inventory.find(x => x["id"] === parseInt(drinkId))
-                    console.log(response.headers["x-inventory-remaining"])
+                    const purchasedInventoryItem = inventory.find(x => x["id"] === parseInt(drinkId))
+                    purchasedInventoryItem.quantity = (parseInt(response.headers["x-inventory-remaining"]))
+                    const updatedInventory = [...inventory]
+                    setInventory([...updatedInventory])
                     setCoins(parseInt(response.headers["x-coins"]))
                     setReturnedCoins(returnedCoinCount + coinCount)
                     setCoins(0)
+                    setDispensedItem(purchasedInventoryItem.type)
                    })
     }
 
@@ -53,6 +57,7 @@ function App() {
                 <p>Hello!</p>
                 <Inventory inventory={inventory} purchaseDrink={purchaseDrink}/>
                 <CoinSlot coinCount={coinCount} insertCoin={insertCoin} returnCoin={returnCoin} returnedCoinCount={returnedCoinCount}/>
+                Dispensed: {dispensedItem}
             </header>
         </div>
     );

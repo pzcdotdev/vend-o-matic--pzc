@@ -14,10 +14,8 @@ class CORSMiddleware(object):
             response[
                 "Access-Control-Allow-Headers"
             ] = "X-CSRFTOKEN, x-requested-with, Content-Type, Accept, Origin"
-            response["Access-Control-Expose-Headers"] = (
-                "X-Coins",
-                "X-Inventory-Remaining",
-            )
+            response["Access-Control-Expose-Headers"] = "X-Coins, X-Inventory-Remaining"
+
             response[
                 "Access-Control-Allow-Methods"
             ] = "OPTIONS, GET, POST, PUT, DELETE, PATCH"
