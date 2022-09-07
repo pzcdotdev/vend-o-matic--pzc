@@ -3,7 +3,7 @@ version: "3"
 services:
   app:
     command: >
-      sh -c "poetry run python vend_o_matic/manage.py makemigrations && poetry run python vend_o_matic/manage.py migrate && poetry run python vend_o_matic/manage.py runserver 0.0.0.0:8000"
+      sh -c "poetry run python vend_o_matic/manage.py makemigrations && poetry run python vend_o_matic/manage.py migrate && poetry run python vend_o_matic/manage.py build && poetry run python vend_o_matic/manage.py runserver 0.0.0.0:8000"
     build: .
     volumes:
       - .:/app
