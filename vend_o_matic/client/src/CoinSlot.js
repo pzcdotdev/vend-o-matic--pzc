@@ -1,6 +1,8 @@
-export const CoinSlot = ({coin_count, insertCoin}) => {
+export const CoinSlot = ({coinCount, insertCoin, returnCoin, returnedCoinCount}) => {
   return <>
     <button onClick={insertCoin}>Insert Coin</button>
-    <div>coin count: {coin_count}</div>
+    <button onClick={returnCoin}>Return Coin</button>
+    <div>coin count: {coinCount}</div>
+    <div>returned coins: {returnedCoinCount}</div>
   </>
 }
