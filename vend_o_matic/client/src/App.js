@@ -17,7 +17,6 @@ function App() {
             const {initial_inventory, initial_coin_count} = data
             setInventory(initial_inventory)
             setCoins(initial_coin_count)
-
         });
     }, []);
 
@@ -36,11 +35,23 @@ function App() {
                    })
     }
 
+    const purchaseDrink = async (e) => {
+        const drinkId = e.target.dataset["id"]
+        await axios.put(`${DOMAIN}/inventory/${drinkId}`)
+                   .then(response => {
+                    // const purchasedInventoryItem = inventory.find(x => x["id"] === parseInt(drinkId))
+                    console.log(response.headers["x-inventory-remaining"])
+                    setCoins(parseInt(response.headers["x-coins"]))
+                    setReturnedCoins(returnedCoinCount + coinCount)
+                    setCoins(0)
+                   })
+    }
+
     return (
         <div className="App">
             <header className="App-header">
                 <p>Hello!</p>
-                <Inventory inventory={inventory} />
+                <Inventory inventory={inventory} purchaseDrink={purchaseDrink}/>
                 <CoinSlot coinCount={coinCount} insertCoin={insertCoin} returnCoin={returnCoin} returnedCoinCount={returnedCoinCount}/>
             </header>
         </div>
