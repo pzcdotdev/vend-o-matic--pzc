@@ -45,7 +45,7 @@ function App() {
                     const updatedInventory = [...inventory]
                     setInventory([...updatedInventory])
                     setCoins(parseInt(response.headers["x-coins"]))
-                    setReturnedCoins(returnedCoinCount + coinCount)
+                    setReturnedCoins(returnedCoinCount + (coinCount - 2))
                     setCoins(0)
                     setDispensedItem(purchasedInventoryItem.type)
                    })
@@ -54,7 +54,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <p>Hello!</p>
+                <p>Welcome to Goodyear!</p>
                 <Inventory inventory={inventory} purchaseDrink={purchaseDrink}/>
                 <CoinSlot coinCount={coinCount} insertCoin={insertCoin} returnCoin={returnCoin} returnedCoinCount={returnedCoinCount}/>
                 Dispensed: {dispensedItem}
