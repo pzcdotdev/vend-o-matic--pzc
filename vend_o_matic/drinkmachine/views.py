@@ -10,7 +10,7 @@ class IndexView(TemplateView):
 
         context["initialData"] = {
             "initial_inventory": [
-                {"quantity": drink.quantity, "type": drink.type}
+                {"id": drink.id, "quantity": drink.quantity, "type": drink.type}
                 for drink in InventoryModel.objects.all()
             ],
             "initial_coin_count": CoinModel.objects.first().coin,

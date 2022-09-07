@@ -1,6 +1,6 @@
-export const Inventory = ({initial_inventory}) => {
-  
+export const Inventory = ({inventory}) => {
+
   return <div>
-      {/* {initial_inventory.map(drink => <div key={drink.type}>{drink.type}: {drink.quantity}</div>)} */}
+      {inventory.map(drink => <div key={drink.id}>{drink.type}: {drink.quantity}</div>)}
   </div>
 };

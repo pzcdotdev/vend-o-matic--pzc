@@ -33,3 +33,5 @@ Shut down the service, delete the sqlite database `db.sqlite`, then run `docker-
 ## Adding React App to Django
 
 http://michaelgainyo.com/articles/how-to-get-django-and-reactjs-to-work-together/
+
+http://michaelgainyo.com/articles/sharing-initial-data-between-django-and-react/
